@@ -1,5 +1,6 @@
 package com.docker.process.controller;
 
+import com.docker.process.document.Process;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +10,15 @@ public interface EntityController {
     @GetMapping("/listar")
     ResponseEntity<?> listarProcessos();
 
+    @GetMapping("/pesquisar/{id}")
+    ResponseEntity<?> pesquisarProcesso(@PathVariable("id") String id);
     @PostMapping("/salvar")
     ResponseEntity<?> salvarProcesso(@RequestBody Process process);
 
-    @PutMapping("/atualizar")
-    ResponseEntity<?> atualizarProcesso(@Validated String id
-            ,@RequestBody Process process);
+    @PutMapping("/atualizar/{id}")
+    ResponseEntity<?> atualizarProcesso( @PathVariable("id") String id
+            ,@Validated @RequestBody Process process);
 
-    @DeleteMapping("/deletar")
-    ResponseEntity<?> deletarProcesso(@Validated String id);
+    @DeleteMapping("/deletar/{id}")
+    ResponseEntity<?> deletarProcesso(@Validated @PathVariable("id") String id);
 }

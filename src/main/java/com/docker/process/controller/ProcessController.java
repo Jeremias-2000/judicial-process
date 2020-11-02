@@ -1,5 +1,6 @@
 package com.docker.process.controller;
 
+import com.docker.process.document.Process;
 import com.docker.process.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,17 +29,24 @@ public class ProcessController implements EntityController {
     }
 
     @Override
+    public ResponseEntity<?> pesquisarProcesso(String id) {
+        return new ResponseEntity<>(service.findProcessById(id),HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<?> salvarProcesso(Process process) {
-        return null;
+        service.saveProcess(process);
+        return new ResponseEntity<Process>(HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> atualizarProcesso(String id, Process process) {
-        return null;
+        return new ResponseEntity<>(service.updateProcess(id, process),HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> deletarProcesso(String id) {
-        return null;
+        service.deleteProcessById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

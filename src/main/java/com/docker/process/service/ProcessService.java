@@ -24,14 +24,13 @@ public class ProcessService {
         return searchId(id);
     }
 
-    public Process saveProcess(Process process){
-        return repository.save(process);
+    public void saveProcess(Process process){
+        repository.save(process);
     }
 
     public Process updateProcess(String id,Process process){
         Process update = searchId(id);
 
-        update.setId(process.getId());
         update.setSource(process.getSource());
         update.setDocument(process.getDocument());
         update.setCpf(process.getCpf());
