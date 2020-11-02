@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Document
@@ -22,10 +23,10 @@ public class Process {
     private String contact;
     private String email;
     @CreatedDate
-    private Date  deadline;
+    private Instant deadline = Instant.now();
 
     public Process(String id, String process_number, String source, String document, String cpf, String cnpj,
-                   String address, String contact, String email, Date deadline) {
+                   String address, String contact, String email, Instant deadline) {
         this.id = id;
         this.process_number = process_number;
         this.source = source;
@@ -115,11 +116,11 @@ public class Process {
     }
 
 
-    public Date getDeadline() {
+    public Instant getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(Instant deadline) {
         this.deadline = deadline;
     }
 
