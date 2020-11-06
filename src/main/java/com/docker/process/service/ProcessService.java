@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 public class ProcessService {
@@ -20,9 +20,11 @@ public class ProcessService {
         return repository.findAll();
     }
 
-    public Process findProcessById(String id){
+    public Process findById(String id){
         return searchId(id);
     }
+
+
 
     public void saveProcess(Process process){
         repository.save(process);
@@ -32,11 +34,11 @@ public class ProcessService {
         Process update = searchId(id);
 
         update.setSource(process.getSource());
-        update.setDocument(process.getDocument());
+        update.setProcess_type(process.getProcess_type());
         update.setCpf(process.getCpf());
         update.setCnpj(process.getCnpj());
         update.setProcess_number(process.getProcess_number());
-        update.setAddress(process.getAddress());
+        update.setCounty(process.getCounty());
         update.setContact(process.getContact());
         update.setEmail(process.getEmail());
         update.setDeadline(process.getDeadline());

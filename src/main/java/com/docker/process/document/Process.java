@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.Date;
+
 
 @Document
 public class Process {
@@ -16,26 +16,26 @@ public class Process {
 
     private String process_number;
     private String source;
-    private String document;
-    private String cpf;
-    private String cnpj;
-    private String address;
-    private String contact;
-    private String email;
+    private String process_type;
+    private String defedants_cpf;
+    private String defedants_cnpj;
+    private String county;
+    private String defedants_contact;
+    private String defedants_email;
     @CreatedDate
     private Instant deadline = Instant.now();
 
-    public Process(String id, String process_number, String source, String document, String cpf, String cnpj,
-                   String address, String contact, String email, Instant deadline) {
+    public Process(String id, String process_number, String source, String process_type, String defedants_cpf, String defedants_cnpj,
+                   String county, String defedants_contact, String defedants_email, Instant deadline) {
         this.id = id;
         this.process_number = process_number;
         this.source = source;
-        this.document = document;
-        this.cpf = cpf;
-        this.cnpj = cnpj;
-        this.address = address;
-        this.contact = contact;
-        this.email = email;
+
+        this.defedants_cpf = defedants_cpf;
+        this.defedants_cnpj = defedants_cnpj;
+        this.county = county;
+        this.defedants_contact = defedants_contact;
+        this.defedants_email = defedants_email;
         this.deadline = deadline;
     }
 
@@ -66,53 +66,53 @@ public class Process {
     }
 
 
-    public String getDocument() {
-        return document;
+    public String getProcess_type() {
+        return process_type;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setProcess_type(String process_type) {
+        this.process_type = process_type;
     }
 
 
     public String getCpf() {
-        return cpf;
+        return defedants_cpf;
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.defedants_cpf = cpf;
     }
 
     public String getCnpj() {
-        return cnpj;
+        return defedants_cnpj;
     }
 
     public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+        this.defedants_cnpj = cnpj;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCounty() {
+        return county;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCounty(String county) {
+        this.county = county;
     }
 
     public String getContact() {
-        return contact;
+        return defedants_contact;
     }
 
     public void setContact(String contact) {
-        this.contact = contact;
+        this.defedants_contact = contact;
     }
 
     public String getEmail() {
-        return email;
+        return defedants_email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.defedants_email = email;
     }
 
 
@@ -130,12 +130,12 @@ public class Process {
                 "id=" + id +
                 ", process_number='" + process_number + '\'' +
                 ", source='" + source + '\'' +
-                ", document='" + document + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                ", address='" + address + '\'' +
-                ", contact='" + contact + '\'' +
-                ", email='" + email + '\'' +
+                ", process type='" + process_type + '\'' +
+                ", cpf(do réu)='" + defedants_cpf + '\'' +
+                ", cnpj='" + defedants_cnpj + '\'' +
+                ", county='" + county + '\'' +
+                ", contact(do réu)='" + defedants_contact + '\'' +
+                ", email (do réu)='" + defedants_email + '\'' +
                 ", deadline=" + deadline +
                 '}';
     }

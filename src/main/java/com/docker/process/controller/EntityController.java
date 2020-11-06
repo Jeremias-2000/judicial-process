@@ -10,8 +10,10 @@ public interface EntityController {
     @GetMapping("/listar")
     ResponseEntity<?> listarProcessos();
 
-    @GetMapping("/pesquisar/{id}")
-    ResponseEntity<?> pesquisarProcesso(@PathVariable("id") String id);
+    @GetMapping("/pesquisar/id/{id}")
+    ResponseEntity<?> pesquisarId(@PathVariable("id") String id);
+
+
     @PostMapping("/salvar")
     ResponseEntity<?> salvarProcesso(@RequestBody Process process);
 
@@ -19,6 +21,6 @@ public interface EntityController {
     ResponseEntity<?> atualizarProcesso( @PathVariable("id") String id
             ,@Validated @RequestBody Process process);
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/deletar/id/{id}")
     ResponseEntity<?> deletarProcesso(@Validated @PathVariable("id") String id);
 }
