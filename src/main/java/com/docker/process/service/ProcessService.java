@@ -8,42 +8,49 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Set;
+
 
 @Service
-public class ProcessService {
+public class ProcessService implements AbstractService<Process>{
 
     @Autowired
     private ProcessRepository repository;
+
+    public ProcessService(ProcessRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Process> findAll(){
         return repository.findAll();
     }
 
-    public Process findProcessById(String id){
+    public Process findId(String id){
         return searchId(id);
     }
 
-    public void saveProcess(Process process){
-        repository.save(process);
-    }
-
-    public Process updateProcess(String id,Process process){
+    @Override
+    public Process update(String id, Process process) {
         Process update = searchId(id);
-
         update.setSource(process.getSource());
-        update.setDocument(process.getDocument());
+        update.setProcess_type(process.getProcess_type());
         update.setCpf(process.getCpf());
         update.setCnpj(process.getCnpj());
         update.setProcess_number(process.getProcess_number());
-        update.setAddress(process.getAddress());
+        update.setCounty(process.getCounty());
         update.setContact(process.getContact());
         update.setEmail(process.getEmail());
         update.setDeadline(process.getDeadline());
         return update;
     }
 
-    public void deleteProcessById(String id){
+
+    public Process saveProcess(Process process){
+        return repository.save(process);
+    }
+
+
+
+    public void delete(String id){
        Process deleted = searchId(id);
        repository.delete(deleted);
     }

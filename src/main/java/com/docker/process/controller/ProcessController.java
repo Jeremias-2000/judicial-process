@@ -1,8 +1,10 @@
 package com.docker.process.controller;
 
 import com.docker.process.document.Process;
+import com.docker.process.service.AbstractService;
 import com.docker.process.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,11 @@ public class ProcessController implements EntityController {
     private ProcessService service;
 
 
+    public ProcessController(ProcessService service) {
+        this.service = service;
+    }
+
+
     @Override
     public ResponseEntity<?> listarProcessos() {
         try {
@@ -29,9 +36,17 @@ public class ProcessController implements EntityController {
     }
 
     @Override
-    public ResponseEntity<?> pesquisarProcesso(String id) {
-        return new ResponseEntity<>(service.findProcessById(id),HttpStatus.OK);
+    public ResponseEntity<?> pesquisarId(String id) {
+       try {
+           return new ResponseEntity<>(service.findId(id),HttpStatus.OK);
+       }catch (RuntimeException e){
+           System.out.println("Not found =>" + e);
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+       }
     }
+
+
 
     @Override
     public ResponseEntity<?> salvarProcesso(Process process) {
@@ -41,12 +56,16 @@ public class ProcessController implements EntityController {
 
     @Override
     public ResponseEntity<?> atualizarProcesso(String id, Process process) {
-        return new ResponseEntity<>(service.updateProcess(id, process),HttpStatus.OK);
+        return new ResponseEntity<>(service.update(id, process),HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> deletarProcesso(String id) {
-        service.deleteProcessById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            service.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (DataIntegrityViolationException e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
