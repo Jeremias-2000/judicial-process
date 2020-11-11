@@ -1,6 +1,7 @@
 package com.docker.process.controller;
 
 import com.docker.process.document.Process;
+import com.docker.process.service.AbstractService;
 import com.docker.process.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +18,7 @@ public class ProcessController implements EntityController {
 
     @Autowired
     private ProcessService service;
+
 
     public ProcessController(ProcessService service) {
         this.service = service;
@@ -36,7 +38,7 @@ public class ProcessController implements EntityController {
     @Override
     public ResponseEntity<?> pesquisarId(String id) {
        try {
-           return new ResponseEntity<>(service.findById(id),HttpStatus.OK);
+           return new ResponseEntity<>(service.findId(id),HttpStatus.OK);
        }catch (RuntimeException e){
            System.out.println("Not found =>" + e);
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,13 +56,13 @@ public class ProcessController implements EntityController {
 
     @Override
     public ResponseEntity<?> atualizarProcesso(String id, Process process) {
-        return new ResponseEntity<>(service.updateProcess(id, process),HttpStatus.OK);
+        return new ResponseEntity<>(service.update(id, process),HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> deletarProcesso(String id) {
         try {
-            service.deleteProcessById(id);
+            service.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (DataIntegrityViolationException e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

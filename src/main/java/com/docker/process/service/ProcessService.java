@@ -11,28 +11,26 @@ import java.util.List;
 
 
 @Service
-public class ProcessService {
+public class ProcessService implements AbstractService<Process>{
 
     @Autowired
     private ProcessRepository repository;
+
+    public ProcessService(ProcessRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Process> findAll(){
         return repository.findAll();
     }
 
-    public Process findById(String id){
+    public Process findId(String id){
         return searchId(id);
     }
 
-
-
-    public void saveProcess(Process process){
-        repository.save(process);
-    }
-
-    public Process updateProcess(String id,Process process){
+    @Override
+    public Process update(String id, Process process) {
         Process update = searchId(id);
-
         update.setSource(process.getSource());
         update.setProcess_type(process.getProcess_type());
         update.setCpf(process.getCpf());
@@ -45,7 +43,14 @@ public class ProcessService {
         return update;
     }
 
-    public void deleteProcessById(String id){
+
+    public Process saveProcess(Process process){
+        return repository.save(process);
+    }
+
+
+
+    public void delete(String id){
        Process deleted = searchId(id);
        repository.delete(deleted);
     }

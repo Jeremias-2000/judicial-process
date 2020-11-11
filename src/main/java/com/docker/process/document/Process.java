@@ -39,6 +39,10 @@ public class Process {
         this.deadline = deadline;
     }
 
+    public Process(String id, String process_number, String source, String process_type, String defedants_cpf, String defedants_cnpj, String county, String defedants_contact, String defedants_email, String s) {
+
+    }
+
     public String getId() {
         return id;
     }
